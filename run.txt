@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#delete previous scan files
+rm /var/www/html/wp-content/uploads/*.txt
+
+#remote IPs and text files
+IP1="74.93.125.65/29"
+IP2="96.65.140.101/29"
+store1="/var/www/html/wp-content/uploads/134remote1.txt"
+store2="/var/www/html/wp-content/uploads/134remote2.txt"
+
+#admin files
+IP3="67.238.66.146/29"
+IP4="50.245.79.81/29"
+admin1="/var/www/html/wp-content/uploads/admin1.txt"
+admin2="/var/www/html/wp-content/uploads/admin2.txt"
+
+#azure ips and files
+IP5="20.186.104.52"
+IP6="52.167.213.220"
+IP7="52.167.152.189"
+IP8="104.209.158.47"
+IP9="40.79.40.137"
+azure1="/var/www/html/wp-content/uploads/prophix.txt"
+azure2="/var/www/html/wp-content/uploads/acct-sqlaz.txt"
+azure3="/var/www/html/wp-content/uploads/web01.txt"
+azure4="/var/www/html/wp-content/uploads/syslog.txt"
+azure5="/var/www/html/wp-content/uploads/az_gateway.txt"
+
+#run admin scans
+nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" -oN $admin1 $IP3
+nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" -oN $admin2 $IP4
+
+#run remote scans
+nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" -oN $store1 $IP1
+nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" -oN $store2 $IP2
+
+#run Azure scans
+nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" -oN $azure1 $IP5
+nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" -oN $azure2 $IP6
+nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" -oN $azure3 $IP7
+nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" -oN $azure4 $IP8
+nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" -oN $azure5 $IP9
+
+exit
+
